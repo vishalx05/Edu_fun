@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduFun - Gamified Learning for Young Minds</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            color: #4a5568;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .setup-form {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .quiz-container {
+            display: none;
+        }
+
+        .question-card {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            color: #2d3748;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #edf2f7;
+        }
+
+        .option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .results-container {
+            display: none;
+        }
+
+        .score-display {
+            font-size: 3em;
+            color: #667eea;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .stars {
+            font-size: 2em;
+            margin: 20px 0;
+        }
+
+        .star {
+            color: #ffd700;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .star.animate {
+            animation: starPop 0.5s ease;
+        }
+
+        @keyframes starPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .loading {
+            display: none;
+            font-size: 1.2em;
+            color: #667eea;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error-message {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #c53030;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .question-text {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Home/Setup Screen -->
+        <div class="setup-form" id="setupScreen">
+            <h1>🎓 EduFun</h1>
+            <p class="subtitle">Gamified Learning for Young Minds</p>
+
+            <div class="form-group">
+                <label for="numQuestions">Number of Questions:</label>
+                <select id="numQuestions">
+                    <option value="5">5 Questions</option>
+                    <option value="10" selected>10 Questions</option>
+                    <option value="15">15 Questions</option>
+                    <option value="20">20 Questions</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <select id="category">
+                    <option value="9">General Knowledge</option>
+                    <option value="17">Science & Nature</option>
+                    <option value="19">Mathematics</option>
+                    <option value="22">Geography</option>
+                    <option value="23">History</option>
+                    <option value="27">Animals</option>
+                    <option value="18">Science: Computers</option>
+                    <option value="21">Sports</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="difficulty">Difficulty:</label>
+                <select id="difficulty">
+                    <option value="easy">Easy 😊</option>
+                    <option value="medium" selected>Medium 🤔</option>
+                    <option value="hard">Hard 🧠</option>
+                </select>
+            </div>
+
+            <button class="btn" onclick="startQuiz()">🚀 Start Quiz</button>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                Loading your quiz...
+            </div>
+
+            <div class="error-message hidden" id="errorMessage"></div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div class="quiz-container" id="quizScreen">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+            </div>
+
+            <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>Next Question ➡️</button>
+            <button class="btn hidden" id="finishBtn" onclick="showResults()">Finish Quiz 🏁</button>
+
+            <p>Question <span id="currentQ">1</span> of <span id="totalQ">10</span></p>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="results-container" id="resultsScreen">
+            <h2>🎉 Quiz Complete!</h2>
+            <div class="score-display" id="scoreDisplay">0/0</div>
+            <div class="stars" id="starsContainer"></div>
+            <p id="scoreMessage"></p>
+            <button class="btn" onclick="restartQuiz()">🔄 Try Again</button>
+            <button class="btn" onclick="goHome()">🏠 Home</button>
+        </div>
+    </div>
+
+    <script>
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let score = 0;
+
+        // OpenTDB API categories
+        const categories = {
+            9: "General Knowledge",
+            17: "Science & Nature",
+            19: "Mathematics",
+            22: "Geography",
+            23: "History",
+            27: "Animals",
+            18: "Science: Computers",
+            21: "Sports"
+        };
+
+        async function startQuiz() {
+            const numQuestions = document.getElementById('numQuestions').value;
+            const category = document.getElementById('category').value;
+            const difficulty = document.getElementById('difficulty').value;
+
+            showLoading(true);
+            hideError();
+
+            try {
+                const url = `https://opentdb.com/api.php?amount=${numQuestions}&category=${category}&difficulty=${difficulty}&type=multiple`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.response_code === 0 && data.results.length > 0) {
+                    questions = data.results;
+                    currentQuestionIndex = 0;
+                    userAnswers = [];
+                    score = 0;
+
+                    document.getElementById('totalQ').textContent = questions.length;
+                    showQuizScreen();
+                    displayQuestion();
+                } else {
+                    throw new Error('No questions available for the selected criteria. Please try different settings.');
+                }
+            } catch (error) {
+                showError('Failed to load quiz questions. Please check your internet connection and try again.');
+                console.error('Error fetching questions:', error);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function displayQuestion() {
+            const question = questions[currentQuestionIndex];
+            document.getElementById('questionText').innerHTML = decodeHtmlEntities(question.question);
+
+            // Shuffle answers
+            const allAnswers = [...question.incorrect_answers, question.correct_answer];
+            const shuffledAnswers = shuffle(allAnswers);
+
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            shuffledAnswers.forEach((answer, index) => {
+                const option = document.createElement('div');
+                option.className = 'option';
+                option.innerHTML = decodeHtmlEntities(answer);
+                option.onclick = () => selectOption(option, answer);
+                optionsContainer.appendChild(option);
+            });
+
+            // Update progress
+            updateProgress();
+            document.getElementById('currentQ').textContent = currentQuestionIndex + 1;
+
+            // Reset buttons
+            document.getElementById('nextBtn').disabled = true;
+            document.getElementById('nextBtn').classList.remove('hidden');
+            document.getElementById('finishBtn').classList.add('hidden');
+        }
+
+        function selectOption(selectedOption, answer) {
+            // Remove previous selection
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+
+            // Add selection to clicked option
+            selectedOption.classList.add('selected');
+
+            // Store answer
+            userAnswers[currentQuestionIndex] = answer;
+
+            // Enable next button
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                // Last question - show finish button
+                document.getElementById('nextBtn').classList.add('hidden');
+                document.getElementById('finishBtn').classList.remove('hidden');
+            }
+        }
+
+        function calculateScore() {
+            score = 0;
+            questions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct_answer) {
+                    score++;
+                }
+            });
+        }
+
+        function showResults() {
+            calculateScore();
+
+            document.getElementById('scoreDisplay').textContent = `${score}/${questions.length}`;
+
+            // Show stars based on performance
+            const percentage = (score / questions.length) * 100;
+            let stars = 1;
+            if (percentage >= 80) stars = 5;
+            else if (percentage >= 60) stars = 4;
+            else if (percentage >= 40) stars = 3;
+            else if (percentage >= 20) stars = 2;
+
+            displayStars(stars);
+
+            // Show message
+            let message = "";
+            if (percentage >= 80) message = "Excellent work! You're a quiz master! 🌟";
+            else if (percentage >= 60) message = "Great job! Keep up the good work! 👏";
+            else if (percentage >= 40) message = "Good effort! Practice makes perfect! 💪";
+            else message = "Don't give up! Try again and you'll do better! 🚀";
+
+            document.getElementById('scoreMessage').textContent = message;
+
+            // Save best score
+            saveBestScore(score, questions.length);
+
+            showResultsScreen();
+        }
+
+        function displayStars(numStars) {
+            const container = document.getElementById('starsContainer');
+            container.innerHTML = '';
+
+            for (let i = 0; i < 5; i++) {
+                const star = document.createElement('span');
+                star.className = 'star';
+                star.textContent = i < numStars ? '⭐' : '☆';
+                container.appendChild(star);
+
+                // Animate stars
+                if (i < numStars) {
+                    setTimeout(() => {
+                        star.classList.add('animate');
+                    }, i * 200);
+                }
+            }
+        }
+
+        function saveBestScore(currentScore, totalQuestions) {
+            const key = 'edufun_best_score';
+            const currentPercentage = (currentScore / totalQuestions) * 100;
+            const savedScore = JSON.parse(localStorage.getItem(key) || '{"score": 0, "total": 1}');
+            const savedPercentage = (savedScore.score / savedScore.total) * 100;
+
+            if (currentPercentage > savedPercentage) {
+                localStorage.setItem(key, JSON.stringify({
+                    score: currentScore,
+                    total: totalQuestions,
+                    date: new Date().toLocaleDateString()
+                }));
+            }
+        }
+
+        // Utility functions
+        function shuffle(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function decodeHtmlEntities(text) {
+            const textarea = document.createElement('textarea');
+            textarea.innerHTML = text;
+            return textarea.value;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Screen management
+        function showQuizScreen() {
+            document.getElementById('setupScreen').style.display = 'none';
+            document.getElementById('quizScreen').style.display = 'block';
+            document.getElementById('resultsScreen').style.display = 'none';
+        }
+
+        function showResultsScreen() {
+            document.getElementById('setupScreen').style.display = 'none';
+            document.getElementById('quizScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'block';
+        }
+
+        function showHomeScreen() {
+            document.getElementById('setupScreen').style.display = 'block';
+            document.getElementById('quizScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'none';
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.classList.remove('hidden');
+        }
+
+        function hideError() {
+            document.getElementById('errorMessage').classList.add('hidden');
+        }
+
+        function restartQuiz() {
+            showHomeScreen();
+        }
+
+        function goHome() {
+            showHomeScreen();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load best score on startup (optional display)
+            const bestScore = JSON.parse(localStorage.getItem('edufun_best_score') || 'null');
+            if (bestScore) {
+                console.log('Best Score:', bestScore);
+            }
+        });
+    </script>
+</body>
+</html>

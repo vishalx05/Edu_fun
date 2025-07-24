@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduFun - Gamified Learning for Young Minds</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                EduFun
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="Introa.html" class="previous-link"> Quiz Page <i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="slider">
+            <div class="slide slide-1 active">
+                <div class="slide-content">
+                    <h1>Math Games for Curious Minds</h1>
+                    <p>Discover the joy of numbers through interactive puzzles and challenges</p>
+                    <a href="#categories" class="cta-button">Start Learning</a>
+                </div>
+            </div>
+            <div class="slide slide-2">
+                <div class="slide-content">
+                    <h1>Language & Vocabulary Quizzes</h1>
+                    <p>Build your word power with fun quizzes powered by OpenTDB API</p>
+                    <a href="#categories" class="cta-button">Start Learning</a>
+                </div>
+            </div>
+            <div class="slide slide-3">
+                <div class="slide-content">
+                    <h1>Learn Science with Fun!</h1>
+                    <p>Explore the wonders of science through gamified learning experiences</p>
+                    <a href="#categories" class="cta-button">Start Learning</a>
+                </div>
+            </div>
+        </div>
+        <button class="slider-nav prev" onclick="changeSlide(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="slider-nav next" onclick="changeSlide(1)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="slider-dots">
+            <span class="dot active" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section categories" id="categories">
+        <div class="container">
+            <h2 class="section-title">Learning Categories</h2>
+            <p class="section-subtitle">Choose your adventure and start your learning journey with our interactive games and quizzes</p>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <h3>Drag & Drop Games</h3>
+                    <p>Interactive learning through hands-on activities. Match, sort, and organize elements to master new concepts in a playful way.</p>
+                </div>
+                <div class="category-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Quick Quizzes</h3>
+                    <p>Test your knowledge with dynamic quizzes powered by OpenTDB API. Fresh questions every time across multiple subjects and difficulty levels.</p>
+                </div>
+                <div class="category-card">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3>Puzzle Challenges</h3>
+                    <p>Solve engaging puzzles that boost critical thinking and problem-solving skills. Perfect for developing logical reasoning abilities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why EduFun Section -->
+    <section class="section why-edufun" id="about">
+        <div class="container">
+            <h2 class="section-title">Why Choose EduFun?</h2>
+            <p class="section-subtitle">Discover what makes our platform the perfect choice for young learners</p>
+            <div class="why-content">
+                <div class="why-image">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Kids learning together">
+                </div>
+                <ul class="why-features">
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Gamified Rewards</h4>
+                            <p>Earn stars, badges, and achievements as you progress through your learning journey</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-wifi-off"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Offline Support</h4>
+                            <p>Continue learning even without internet connection with our cached content and games</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Free and Kid-Safe</h4>
+                            <p>Completely free platform with child-friendly content and no inappropriate advertisements</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+        <div class="container">
+            <h2 class="section-title">What Parents & Teachers Say</h2>
+            <p class="section-subtitle">Real feedback from families and educators who love EduFun</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"My 8-year-old daughter loves the math games! She's actually excited about learning now and her grades have improved significantly."</p>
+                    <div class="testimonial-author">Sarah Johnson</div>
+                    <div class="testimonial-role">Parent</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"EduFun has revolutionized how I teach. The interactive quizzes keep my students engaged and the progress tracking helps me identify areas for improvement."</p>
+                    <div class="testimonial-author">Michael Chen</div>
+                    <div class="testimonial-role">Elementary Teacher</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"The variety of subjects and the adaptive difficulty levels make this perfect for both my kids. It grows with them as they learn!"</p>
+                    <div class="testimonial-author">Emily Rodriguez</div>
+                    <div class="testimonial-role">Homeschool Parent</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Learning Street, Education City, EC 12345</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i>vishal501676@gmail.com</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#home">Home</a>
+                    <a href="#categories">Categories</a>
+                    <a href="#about">About Us</a>
+                    <a href="Introa.html"> Quiz Page <i class="fas fa-arrow-right"></i></a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Stay updated with new games, features, and educational content!</p>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Enter your email" id="newsletter-email">
+                        <button onclick="subscribeNewsletter()">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 EduFun - Gamified Learning for Young Minds. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<script src="script.js"></script>
+</body>
+</html>
